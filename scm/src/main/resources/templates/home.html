@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Home</title>
+    <style>
+      .container {
+        margin: auto;
+        width: 50%;
+        padding: 30px;
+        background-color: #e2e2e2;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1 th:text="${name}">Welcome to Home</h1>
+      <a th:href="${Github}">Github</a>
+      <p>
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Praesentium et
+        atque doloribus quod. Omnis sapiente illo tempore animi doloribus
+        laudantium, libero rem nulla quam corporis. Totam non animi repellat
+        consectetur!
+      </p>
+    </div>
+  </body>
+</html>
