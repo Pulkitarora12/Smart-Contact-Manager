@@ -4,17 +4,12 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Home</title>
-    <style>
-      .container {
-        margin: auto;
-        width: 50%;
-        padding: 30px;
-        background-color: #e2e2e2;
-      }
-    </style>
+    <link th:href="@{'/css/output.css'}" rel="stylesheet" />
   </head>
   <body>
-    <div class="container">
+    <div
+      class="mt-[10px] m-auto w-[50%] p-[30px] bg-[#e2e2e2] flex flex-col space-y-3 text-center"
+    >
       <h1 th:text="${name}">Welcome to Home</h1>
       <a th:href="${Github}">Github</a>
       <p>
@@ -23,6 +18,13 @@
         laudantium, libero rem nulla quam corporis. Totam non animi repellat
         consectetur!
       </p>
+      <div>
+        <button
+          class="px-3 py-2 rounded bg-blue-700 text-white hover:bg-blue-600"
+        >
+          Click Here
+        </button>
+      </div>
     </div>
   </body>
 </html>
