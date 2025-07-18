@@ -10,7 +10,7 @@ public class PageController {
     @GetMapping("/home")
     public String home(Model model) {
         model.addAttribute("name", "Pulkit Arora");
-        model.addAttribute("Github", "https://github.com/Pulkitarora12");
+        model.addAttribute("Github", "https://github.com/Pulkitarora12/Smart-Contact-Manager");
         return "home"; // This will render home.html from templates
     }
 }
