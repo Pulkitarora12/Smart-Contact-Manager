@@ -1,10 +1,15 @@
 package com.scm.scm.entities;
 
+import java.util.*;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import lombok.Data;
 import lombok.Builder;
 
@@ -14,7 +19,6 @@ import lombok.Builder;
 public class User {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     private String userId;
 
     @Column(name = "user_name", nullable = false, length = 255)
@@ -42,4 +46,8 @@ public class User {
     // How did user logged in
     private Providers provider;
     private String providerURL;
+
+    @OneToMany(mappedBy="user", cascade=CascadeType.ALL, orphanRemoval=true, fetch = FetchType.LAZY)
+    private List<Contact> contacts = new ArrayList<>();
+
 }
