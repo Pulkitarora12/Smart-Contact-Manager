@@ -3,6 +3,7 @@ package com.scm.scm.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -13,6 +14,7 @@ import com.scm.scm.form.UserForm;
 import com.scm.scm.service.impl.UserServiceImpl;
 
 import jakarta.servlet.http.HttpSession;
+import jakarta.validation.Valid;
 
 @Controller
 public class PageController {
@@ -69,13 +71,15 @@ public class PageController {
     }
 
     @PostMapping("/do-register")
-    public String processRegister(@ModelAttribute UserForm userForm, HttpSession session) {
+    public String processRegister(@Valid UserForm userForm,BindingResult result,HttpSession session) {
         
         //fetch data from form
         System.out.println(userForm);
 
         //validate form data
-        
+        if (result.hasErrors()) {
+            return "register"; // no need to redirect just return to same page
+        }
 
         //save to database
         // User user = User  we will not use builder as it will not save default values

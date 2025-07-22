@@ -20,7 +20,7 @@
           >
             <!-- message box -->
             <div th:replace="~{message::messagbox}"></div>
-            
+
             <!-- title and description -->
             <h5
               class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"
@@ -31,7 +31,7 @@
               Start Managing your contacts with Smart Contact Manager.
             </p>
 
-            <form action="" class="mt-4" th:action="@{'/do-register'}" method="post" th:object="${userForm}">
+            <form action="" class="mt-4" th:action="@{'/do-register'}" method="post" th:object="${userForm}" novalidate>
               <!--name field-->
               <div class="mb-3">
                 <label
@@ -47,6 +47,10 @@
                   placeholder="Enter Here"
                   required
                 />
+                <p class="text-orange-600 py-2 px-1 text-xs"
+                  th:if="${#fields.hasErrors('name')}"
+                  th:errors="*{name}"
+                >User is required</p>
               </div>
 
               <!--email field-->
@@ -64,6 +68,10 @@
                   placeholder="name@example.com"
                   required
                 />
+                <p class="text-orange-600 py-2 px-1 text-xs"
+                  th:if="${#fields.hasErrors('email')}"
+                  th:errors="*{email}"
+                >Email is required</p>
               </div>
 
               <!--password field-->
@@ -81,6 +89,10 @@
                   placeholder="••••••••"
                   required
                 />
+                <p class="text-orange-600 py-2 px-1 text-xs"
+                  th:if="${#fields.hasErrors('password')}"
+                  th:errors="*{password}">
+                </p>
               </div>
 
               <!--phone number field-->
@@ -98,6 +110,10 @@
                   required
                   placeholder="Enter your phone number"
                 />
+                <p class="text-orange-600 py-2 px-1 text-xs"
+                  th:if="${#fields.hasErrors('phoneNumber')}"
+                  th:errors="*{phoneNumber}">
+                </p>
               </div>
 
               <!--about field-->
@@ -115,6 +131,10 @@
                   class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   placeholder="Write here..."
                 ></textarea>
+                <p class="text-orange-600 py-2 px-1 text-xs"
+                  th:if="${#fields.hasErrors('about')}"
+                  th:errors="*{about}">
+                </p>
               </div>
 
               <!--buttons-->
