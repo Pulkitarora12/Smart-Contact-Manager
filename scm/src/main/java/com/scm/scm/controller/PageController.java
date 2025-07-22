@@ -12,6 +12,8 @@ import com.scm.scm.entities.User;
 import com.scm.scm.form.UserForm;
 import com.scm.scm.service.impl.UserServiceImpl;
 
+import jakarta.servlet.http.HttpSession;
+
 @Controller
 public class PageController {
 
@@ -21,7 +23,7 @@ public class PageController {
 
     @Autowired
     public PageController(UserServiceImpl userService, AppProperties appProperties) {
-        this.userService = userService;
+        this.userService = userService; 
         this.appProperties = appProperties;
         this.defaultProfilePic = appProperties.getDefaultProfilePic();
     }
@@ -55,14 +57,19 @@ public class PageController {
     }
 
     @GetMapping("/register")
-    public String register(Model model) {
+    public String register(Model model, HttpSession session) {
         UserForm userForm = new UserForm();
         model.addAttribute("userForm", userForm);
+        String message = (String) session.getAttribute("message");
+        if (message != null) {
+            model.addAttribute("message", message);
+            session.removeAttribute("message"); // This clears it for next refresh
+        }
         return "register"; // This will render register.html from templates
     }
 
     @PostMapping("/do-register")
-    public String processRegister(@ModelAttribute UserForm userForm) {
+    public String processRegister(@ModelAttribute UserForm userForm, HttpSession session) {
         
         //fetch data from form
         System.out.println(userForm);
@@ -71,18 +78,30 @@ public class PageController {
         
 
         //save to database
-        User user = User
-                    .builder()
-                    .name(userForm.getName())
-                    .email(userForm.getEmail())
-                    .password(userForm.getPassword())
-                    .about(userForm.getAbout())
-                    .phoneNumber(userForm.getPhoneNumber())
-                    .profileLink(defaultProfilePic)
-                    .build();   
+        // User user = User  we will not use builder as it will not save default values
+        //             .builder()
+        //             .name(userForm.getName())
+        //             .email(userForm.getEmail())
+        //             .password(userForm.getPassword())
+        //             .about(userForm.getAbout())
+        //             .phoneNumber(userForm.getPhoneNumber())
+        //             .profileLink(defaultProfilePic)
+        //             .build();
+        
+        //creating user object and saving manually
+        User user = new User();
+        user.setName(userForm.getName());
+        user.setEmail(userForm.getEmail());
+        user.setPassword(userForm.getPassword());
+        user.setAbout(userForm.getAbout());
+        user.setPhoneNumber(userForm.getPhoneNumber());
+        user.setProfileLink(defaultProfilePic);
 
         User savedUser = userService.saveUser(user);
-        System.out.println("User saved");
+
+        //message that info is saved
+        session.setAttribute("message", "User registered successfully!");
+
 
         //redirect to login page
         return "redirect:/register"; 
