@@ -13,7 +13,8 @@
         <!-- to bring the div in center-->
         <div class="col-span-4 md:col-span-2 lg:col-span-4"></div>
         <!-- grid item with 4 cols -->
-        <div class="col-span-12 md:col-span-8 lg:col-span-4">
+        <div
+        class="col-span-12 md:col-span-8 lg:col-span-4">
           <div
             class="block p-6 pb-3 rounded-lg shadow-sm  dark:bg-gray-800 dark:border-gray-700"
           >
@@ -26,7 +27,7 @@
               Start Managing your contacts with Smart Contact Manager.
             </p>
 
-            <form action="" class="mt-4">
+            <form action="" class="mt-4" th:action="@{'/do-register'}" method="post" th:object="${userForm}">
               <!--name field-->
               <div class="mb-3">
                 <label
@@ -37,6 +38,7 @@
                 <input
                   type="text"
                   id="name"
+                  th:field="*{name}"
                   class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   placeholder="Enter Here"
                   required
@@ -53,6 +55,7 @@
                 <input
                   type="email"
                   id="email"
+                  th:field="*{email}"
                   class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   placeholder="name@example.com"
                   required
@@ -69,6 +72,7 @@
                 <input
                   type="password"
                   id="password"
+                  th:field="*{password}"
                   class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   placeholder="••••••••"
                   required
@@ -85,6 +89,7 @@
                 <input
                   type="text"
                   id="phone"
+                  th:field="*{phoneNumber}"
                   class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   required
                   placeholder="Enter your phone number"
@@ -102,6 +107,7 @@
                 <textarea
                   id="about"
                   rows="4"
+                  th:field="*{about}"
                   class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   placeholder="Write here..."
                 ></textarea>
@@ -114,7 +120,7 @@
                   class="focus:outline-none text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-900">Submit</button>
                 </button>
                 <button
-                  type="button"
+                  type="reset"
                   class="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
                 >Reset</button>
               

@@ -2,20 +2,14 @@ package com.scm.scm.entities;
 
 import java.util.*;
 
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
-import lombok.Data;
-import lombok.Builder;
+import jakarta.persistence.*;
+import lombok.*;
 
 @Entity
 @Data
-@Builder
+@Builder 
+@NoArgsConstructor
+@AllArgsConstructor 
 public class User {
 
     @Id
@@ -43,11 +37,10 @@ public class User {
     private boolean emailVerified = false;
     private boolean phoneVerified = false;
 
-    // How did user logged in
-    private Providers provider;
+    @Enumerated
+    private Providers provider = Providers.SELF;
     private String providerURL;
 
-    @OneToMany(mappedBy="user", cascade=CascadeType.ALL, orphanRemoval=true, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     private List<Contact> contacts = new ArrayList<>();
-
 }
