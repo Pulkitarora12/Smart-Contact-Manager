@@ -1,11 +1,14 @@
 package com.scm.scm.config;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
+import org.springframework.security.authentication.AuthenticationProvider;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
+
+import com.scm.scm.service.impl.SecurityCustomDetailService;
 
 
 @Configuration
@@ -13,23 +16,47 @@ public class SecurityConfig {
 
     //create user and login from java code in memoryservice
 
+    // @Bean
+    // public UserDetailsService userDetailsService() {
+
+    //     UserDetails user1 = User
+    //         .withDefaultPasswordEncoder()
+    //         .username("admin123")
+    //         .password("admin123")
+    //         .roles("admin")
+    //         .build();
+
+    //     UserDetails user2 = User
+    //         .withDefaultPasswordEncoder()
+    //         .username("admin124")
+    //         .password("admin124")
+    //         .roles("user")
+    //         .build();
+
+    //     return new InMemoryUserDetailsManager(user1, user2);
+    // }
+
+
+    @Autowired
+    private SecurityCustomDetailService userDetailService;
+
     @Bean
-    public UserDetailsService userDetailsService() {
+    public AuthenticationProvider authenticationProvider() {
+        
+        DaoAuthenticationProvider daoAuthenticationProvider = new DaoAuthenticationProvider();
 
-        UserDetails user1 = User
-            .withDefaultPasswordEncoder()
-            .username("admin123")
-            .password("admin123")
-            .roles("admin")
-            .build();
+        //userdetailsService ka object
+        daoAuthenticationProvider.setUserDetailsService(userDetailService);
 
-        UserDetails user2 = User
-            .withDefaultPasswordEncoder()
-            .username("admin124")
-            .password("admin124")
-            .roles("user")
-            .build();
+        //password encoder ka object
+        daoAuthenticationProvider.setPasswordEncoder(passwordEncoder());
 
-        return new InMemoryUserDetailsManager(user1, user2);
+        return daoAuthenticationProvider;
     }
+
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
+    
 }

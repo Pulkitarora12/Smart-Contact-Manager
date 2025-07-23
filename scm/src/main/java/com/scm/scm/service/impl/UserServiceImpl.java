@@ -3,10 +3,14 @@ package com.scm.scm.service.impl;
 import java.util.Optional;
 import java.util.UUID;
 import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.scm.scm.controller.ResourceNotFoundException;
 import com.scm.scm.entities.User;
+import com.scm.scm.helper.AppConstants;
 import com.scm.scm.repositories.PageRepository;
 import com.scm.scm.service.UserService;
 
@@ -14,6 +18,9 @@ import com.scm.scm.service.UserService;
 public class UserServiceImpl implements UserService {
 
     private final PageRepository pageRepository;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     public UserServiceImpl(PageRepository pageRepository) {
         this.pageRepository = pageRepository;
@@ -26,7 +33,13 @@ public class UserServiceImpl implements UserService {
 
         String userId = UUID.randomUUID().toString();
         user.setUserId(userId);
+
+        //encoding password before saving
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         
+        //set user roles
+        user.setRoleList(List.of(AppConstants.ROLE_USER));
+
         return pageRepository.save(user); // Logic to save user
     }
 
