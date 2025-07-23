@@ -15,6 +15,8 @@ import com.scm.scm.service.impl.UserServiceImpl;
 
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 @Controller
 public class PageController {
@@ -29,6 +31,7 @@ public class PageController {
         this.appProperties = appProperties;
         this.defaultProfilePic = appProperties.getDefaultProfilePic();
     }
+
 
 
     @GetMapping("/home")

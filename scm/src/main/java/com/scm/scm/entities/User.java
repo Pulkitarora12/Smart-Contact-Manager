@@ -15,6 +15,7 @@ import lombok.*;
 @Builder 
 @NoArgsConstructor
 @AllArgsConstructor 
+@ToString(exclude="contact")
 public class User implements UserDetails {
 
     @Id
@@ -38,7 +39,7 @@ public class User implements UserDetails {
     @Column(length = 20)
     private String phoneNumber;
 
-    private boolean enabled = false;
+    private boolean enabled = true; 
     private boolean emailVerified = false;
     private boolean phoneVerified = false;
 
@@ -82,7 +83,7 @@ public class User implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return this.enabled;
+        return true;
     }
 
     @Override
