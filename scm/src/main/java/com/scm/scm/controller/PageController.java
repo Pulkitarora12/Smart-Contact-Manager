@@ -32,7 +32,10 @@ public class PageController {
         this.defaultProfilePic = appProperties.getDefaultProfilePic();
     }
 
-
+    @GetMapping("/")
+    public String redirectHome() {
+        return "home";
+    }
 
     @GetMapping("/home")
     public String home(Model model) {
