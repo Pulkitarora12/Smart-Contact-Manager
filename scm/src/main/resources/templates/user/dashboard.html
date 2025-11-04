@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html
+  lang="en"
+  th:replace="~{base::parent(~{::#content}, ~{::title}, ~{::script})}"
+>
+  <head>
+    <title th:text="${loggedInUser.name} + ' | Dashboard'">Profile Page</title>
+  </head>
+  <body>
+    <div id="content">
+      <!--sidebar-->
+      <div th:if="${loggedInUser}">
+        <div th:replace="~{user/sidebar :: sidebar}"></div>
+      </div>
+
+      <div id="content" class="pl-66 pt-20 flex flex-col text-center">
+        <h1 class="text-amber-50 text-5xl">this is Dashboard page</h1>
+        <p>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Error,
+          consectetur. A tempore recusandae rem architecto vero officia
+          voluptate aut enim non reiciendis, ea voluptas praesentium earum dolor
+          debitis commodi. Voluptatibus veritatis inventore ipsam delectus
+          explicabo nobis impedit dolorem, debitis placeat! Nostrum dolor nulla
+          ducimus assumenda voluptatibus rerum vel accusamus excepturi.
+        </p>
+      </div>
+    </div>
+    <script>
+      console.log("Dashboard page script loaded");
+    </script>
+  </body>
+</html>

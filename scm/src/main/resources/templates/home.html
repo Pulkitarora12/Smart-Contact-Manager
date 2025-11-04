@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html
+  lang="en"
+  th:replace="~{base::parent(~{::#content}, ~{::title}, ~{::script})}"
+  xmlns:th="http://www.thymeleaf.org"
+>
+  <head>
+    <title id="title">Home</title>
+  </head>
+
+  <body>
+    <div id="content">
+      <main
+        class="min-h-screen bg-gray-900 text-gray-100 flex flex-col items-center py-16 px-6 mt-10"
+      >
+        <!-- Header -->
+        <section class="max-w-4xl text-center mb-12">
+          <h1 class="text-4xl font-bold mb-3 text-indigo-400">
+            About Smart Contact Manager
+          </h1>
+          <p class="text-gray-400 text-lg">
+            Smart Contact Manager is your personal hub for managing, organizing,
+            and securing your contacts — powered by modern web technologies and
+            cloud integration.
+          </p>
+        </section>
+
+        <!-- Mission Section -->
+        <section class="max-w-4xl text-center mb-16 mt-10">
+          <h2 class="text-2xl font-semibold mb-3 text-indigo-300">
+            Our Mission
+          </h2>
+          <p class="text-gray-400 leading-relaxed">
+            Our mission is to empower users with smarter contact management
+            tools that prioritize data security, ease of access, and seamless
+            integration with modern authentication systems.
+          </p>
+        </section>
+
+        <!-- Story Section -->
+        <section
+          class="max-w-5xl bg-gray-800/50 border border-gray-700 rounded-2xl p-8 mb-16 shadow-lg mt-10"
+        >
+          <h2 class="text-2xl font-semibold mb-4 text-indigo-300">
+            How It Started
+          </h2>
+          <p class="text-gray-400 leading-relaxed">
+            Smart Contact Manager began as a simple college project aimed at
+            creating a secure space for users to save and manage contacts. Over
+            time, it evolved into a full-fledged platform offering Google and
+            GitHub login, cloud storage for profile images, and advanced
+            features like CSV export and pagination.
+          </p>
+        </section>
+
+        <!-- Features / Highlights -->
+        <section class="max-w-5xl mb-16 text-center mt-10">
+          <h2 class="text-2xl font-semibold mb-6 text-indigo-300">
+            What Makes Us Unique
+          </h2>
+          <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div
+              class="p-5 bg-gray-800 border border-gray-700 rounded-xl hover:border-indigo-500 transition"
+            >
+              <h3 class="text-lg font-medium mb-2 text-indigo-400">
+                🔐 Secure Login
+              </h3>
+              <p class="text-sm text-gray-400">
+                Login with Google or GitHub for enhanced security and
+                convenience.
+              </p>
+            </div>
+            <div
+              class="p-5 bg-gray-800 border border-gray-700 rounded-xl hover:border-indigo-500 transition"
+            >
+              <h3 class="text-lg font-medium mb-2 text-indigo-400">
+                ☁️ Cloud Storage
+              </h3>
+              <p class="text-sm text-gray-400">
+                Store and access your contact images safely on the cloud.
+              </p>
+            </div>
+            <div
+              class="p-5 bg-gray-800 border border-gray-700 rounded-xl hover:border-indigo-500 transition"
+            >
+              <h3 class="text-lg font-medium mb-2 text-indigo-400">
+                💬 Feedback System
+              </h3>
+              <p class="text-sm text-gray-400">
+                Submit feedback easily and help us continuously improve.
+              </p>
+            </div>
+            <div
+              class="p-5 bg-gray-800 border border-gray-700 rounded-xl hover:border-indigo-500 transition"
+            >
+              <h3 class="text-lg font-medium mb-2 text-indigo-400">
+                📁 CSV Export
+              </h3>
+              <p class="text-sm text-gray-400">
+                Download your saved contacts in CSV format anytime.
+              </p>
+            </div>
+            <div
+              class="p-5 bg-gray-800 border border-gray-700 rounded-xl hover:border-indigo-500 transition"
+            >
+              <h3 class="text-lg font-medium mb-2 text-indigo-400">
+                📱 Smart UI
+              </h3>
+              <p class="text-sm text-gray-400">
+                Paginated, searchable contact lists designed for efficiency.
+              </p>
+            </div>
+            <div
+              class="p-5 bg-gray-800 border border-gray-700 rounded-xl hover:border-indigo-500 transition"
+            >
+              <h3 class="text-lg font-medium mb-2 text-indigo-400">
+                🧠 Future Ready
+              </h3>
+              <p class="text-sm text-gray-400">
+                Planned integration of AI-driven contact recommendations and
+                analytics.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <!-- Team Section -->
+        <section class="max-w-4xl text-center mb-16 mt-10">
+          <h2 class="text-2xl font-semibold mb-4 text-indigo-300">
+            Meet the Team
+          </h2>
+          <p class="text-gray-400 mb-8">
+            Developed and maintained by a passionate group of developers
+            committed to creating meaningful digital experiences.
+          </p>
+
+          <div class="flex flex-wrap justify-center gap-6">
+            <div
+              class="bg-gray-800 border border-gray-700 rounded-xl p-6 w-56 hover:border-indigo-500 transition"
+            >
+              <div class="text-3xl mb-3">👨‍💻</div>
+              <h3 class="text-lg font-medium text-indigo-400">Pulkit Arora</h3>
+              <p class="text-sm text-gray-400 mb-3">Lead Developer</p>
+
+              <!-- GitHub Profile Link -->
+              <a
+                href="https://github.com/pulkitarora12"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="inline-flex items-center gap-2 text-indigo-400 hover:text-indigo-300 text-sm font-medium transition"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="currentColor"
+                  viewBox="0 0 24 24"
+                  class="w-5 h-5"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M12 .5C5.648.5.5 5.648.5 12c0 5.088 3.292 9.386 7.861 10.914.574.106.782-.248.782-.55 0-.272-.01-.994-.015-1.951-3.2.696-3.878-1.543-3.878-1.543-.523-1.33-1.278-1.686-1.278-1.686-1.045-.714.08-.699.08-.699 1.156.081 1.763 1.188 1.763 1.188 1.028 1.761 2.696 1.253 3.352.959.104-.745.403-1.253.733-1.541-2.553-.29-5.235-1.278-5.235-5.689 0-1.258.45-2.287 1.187-3.093-.119-.29-.514-1.457.113-3.038 0 0 .966-.309 3.167 1.18a10.94 10.94 0 0 1 2.883-.388c.978.005 1.963.132 2.883.388 2.2-1.489 3.164-1.18 3.164-1.18.63 1.581.235 2.748.116 3.038.74.806 1.186 1.835 1.186 3.093 0 4.421-2.687 5.395-5.25 5.68.414.357.782 1.056.782 2.129 0 1.541-.014 2.78-.014 3.157 0 .305.207.66.788.548C20.21 21.382 23.5 17.086 23.5 12 23.5 5.648 18.352.5 12 .5Z"
+                    clip-rule="evenodd"
+                  />
+                </svg>
+                GitHub
+              </a>
+            </div>
+          </div>
+        </section>
+
+        <!-- Vision Section -->
+        <section class="max-w-4xl text-center mb-10 mt-10">
+          <h2 class="text-2xl font-semibold mb-3 text-indigo-300">
+            Our Vision
+          </h2>
+          <p class="text-gray-400 leading-relaxed">
+            To build an ecosystem that simplifies digital contact management
+            using intelligent automation, ensuring every user enjoys security,
+            accessibility, and innovation — all in one place.
+          </p>
+        </section>
+      </main>
+    </div>
+
+    <th:block th:fragment="script"></th:block>
+  </body>
+</html>

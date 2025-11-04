@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html
+  lang="en"
+  th:replace="~{base::parent(~{::#content}, ~{::title}, ~{::script})}"
+>
+  <head>
+    <title th:text="${loggedInUser.name} + ' | Search Contacts'">Profile Page</title>
+  </head>
+  <body>
+    <div id="content">
+      <!--sidebar-->
+      <div th:if="${loggedInUser}">
+        <div th:replace="~{user/sidebar :: sidebar}"></div>
+      </div>
+
+      <div id="content" class="pl-66 pt-20 flex flex-col text-center">
+        <h1 class="text-amber-50 text-5xl">Search Results</h1>
+        <p th:text="${pageContact.totalElements} + ' Results found'" class="text-amber-50"></p>
+        <div class="contacts_container p-5">
+          <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+            
+            <!--search form-->
+            <form th:action="@{'/user/contact/search'}">
+
+                    <div
+                    class="flex items-center justify-start gap-2 flex-wrap md:flex-nowrap pb-4 bg-white dark:bg-gray-900"
+                  >
+                    <!-- Dropdown -->
+                    <div>
+                        <select 
+                        name="field"
+                        id="countries_disabled" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                          <option selected >Select Field</option>
+                          <option value="name">Name</option>
+                          <option value="phone">Phone</option>
+                          <option value="email">Email</option>
+                        </select>
+                    </div>
+
+
+                    <!-- Search -->
+                    <div class="relative">
+                      <div class="absolute inset-y-0 left-0 flex items-center ps-3 pointer-events-none">
+                        <svg
+                          class="w-4 h-4 text-gray-500 dark:text-gray-400"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 20 20"
+                        >
+                          <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"
+                          />
+                        </svg>
+                      </div>
+                      <input
+                        name="keyword"
+                        type="text"
+                        id="table-search-users"
+                        class="p-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg w-80 bg-gray-50 focus:ring-blue-500 focus:border-blue-500 
+                              dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                        placeholder="Search for contacts"
+                      />
+                    </div>
+
+                    <!--search button-->
+                    <div>
+                      <button type="submit" class=" px-2 py-1.5 rounded-lg bg-blue-700">Search</button>
+                    </div>
+                  </div>
+
+            </form>
+            <table
+              class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400"
+            >
+              <thead
+                class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"
+              >
+                <tr>
+                  <th scope="col" class="px-6 py-3">Name</th>
+                  <th scope="col" class="px-6 py-3">Phone Number</th>
+                  <th scope="col" class="px-6 py-3">Links</th>
+                  <th scope="col" class="px-6 py-3">Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr
+                  th:each="c : ${pageContact.content}"
+                  class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200 hover:bg-gray-50 dark:hover:bg-gray-600"
+                >
+                  <th
+                    scope="row"
+                    class="flex items-center px-6 py-4 text-gray-900 whitespace-nowrap dark:text-white"
+                  >
+                    <img
+                      class="w-10 h-10 rounded-full object-cover"
+                      th:src="${c.profilePicture != null && !c.profilePicture.isEmpty()} ? ${c.profilePicture} : ${defaultProfilePic}"
+                      th:alt="${c.name} + ' profile picture'"
+                      onerror="this.src='https://i.pinimg.com/474x/e6/e4/df/e6e4df26ba752161b9fc6a17321fa286.jpg'"
+                    />
+                    <div class="ps-3">
+                      <div class="text-base font-semibold" th:text="${c.name}">
+                        Contact Name
+                      </div>
+                      <div
+                        class="font-normal text-gray-500"
+                        th:text="${c.email}"
+                      >
+                        contact@email.com
+                      </div>
+                    </div>
+                  </th>
+                  <td class="px-6 py-4" th:text="${c.phoneNumber ?: 'N/A'}">
+                    Phone Number
+                  </td>
+                  <td class="px-6 py-4">
+                    <div class="flex gap-3">
+                      <div
+                        th:if="${c.favorite}"
+                        class="h-2.5 w-2.5 rounded-full bg-green-500 me-2"
+                      ></div>
+                      <a
+                        th:if="${c.linkedinLink != null && !c.linkedinLink.isEmpty()}"
+                        th:href="${c.linkedinLink}"
+                        class="text-blue-600 hover:underline text-sm font-medium"
+                        target="_blank"
+                        title="LinkedIn Profile"
+                      >
+                        LinkedIn
+                      </a>
+                      <a
+                        th:if="${c.websiteLink != null && !c.websiteLink.isEmpty()}"
+                        th:href="${c.websiteLink}"
+                        class="text-green-600 hover:underline text-sm font-medium"
+                        target="_blank"
+                        title="Website"
+                      >
+                        Website
+                      </a>
+                      <span
+                        th:if="${(c.linkedinLink == null || c.linkedinLink.isEmpty()) && (c.websiteLink == null || c.websiteLink.isEmpty())}"
+                        class="text-gray-400 text-sm"
+                      >
+                        No links
+                      </span>
+                    </div>
+                  </td>
+                  <td class="px-6 py-4">
+                    <div class="flex gap-4">
+                      <a
+                        th:href="@{'/user/contact/edit/' + ${c.id}}"
+                        class="font-medium text-yellow-500 hover:underline"
+                        title="Edit Contact"
+                      >
+                        Edit
+                      </a>
+                      <a
+                        th:href="@{'/user/contact/delete/' + ${c.id}}"
+                        class="font-medium text-red-500 hover:underline"
+                        title="Delete Contact"
+                      >
+                        Delete
+                      </a>
+                      <a
+                        th:href="@{'/user/contact/view/' + ${c.id}}"
+                        class="font-medium text-blue-500 hover:underline"
+                        title="View Contact"
+                      >
+                        View
+                      </a>
+                    </div>
+                  </td>
+                </tr>
+                <tr th:if="${#lists.isEmpty(pageContact.content)}">
+                  <td colspan="4" class="px-6 py-8 text-center text-gray-500">
+                    <div class="flex flex-col items-center">
+                      <svg
+                        class="w-12 h-12 mb-4 text-gray-300"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                          d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"
+                        ></path>
+                      </svg>
+                      <p class="text-lg font-medium">No result found</p>
+                      <a
+                        th:href="@{/user/contact/add}"
+                        class="mt-4 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors"
+                      >
+                        Add Contact
+                      </a>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            </nav>
+            <nav aria-label="Page navigation example" class="pt-10 pb-5">
+              <ul class="inline-flex -space-x-px text-base h-10">
+                <li th:unless="${pageContact.first}">
+                  <a
+                    th:href="@{'/user/contact/search?size='+${pageSize} + '&page='+${pageContact.number-1}+'&field='+ ${field} +'&keyword=' + ${keyword}}"
+                    class="flex items-center justify-center px-4 h-10 ms-0 leading-tight text-gray-500 bg-white border border-e-0 border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+                    >Previous</a
+                  >
+                </li>
+                <li
+                  th:each="i : ${#numbers.sequence(0, pageContact.totalPages - 1)}"
+                >
+                  <a
+                    th:href="@{'/user/contact/search?size='+${pageSize} + '&page='+${pageContact.number+1}+'&field='+ ${field} +'&keyword=' + ${keyword}}"
+                    th:text="${i + 1}"
+                    th:classappend="${i == pageContact.number} ? ' text-2xl font-bold border border-gray-600' : ' bg-gray-100'"
+                    class="flex items-center justify-center px-4 h-10 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+                  ></a>
+                </li>
+                <li th:unless="${pageContact.last}">
+                  <a
+                    th:href="@{'/user/contact/search?size='+${pageSize} + '&page='+${pageContact.number+1}+'&field='+ ${field} +'&keyword=' + ${keyword}}"
+                    class="flex items-center justify-center px-4 h-10 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+                    Next</a
+                  >
+                </li>
+              </ul>
+            </nav>
+          </div>
+        </div>
+      </div>
+
+      
+    </div>
+    <script>
+      console.log("Dashboard page script loaded");
+    </script>
+  </body>
+</html>

@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html
+  lang="en"
+  th:replace="~{base::parent(~{::#content}, ~{::title}, ~{::script})}"
+  xmlns:th="http://www.thymeleaf.org"
+>
+  <head>
+    <title id="title">Feedback Form</title>
+  </head>
+
+  <body>
+    <div id="content">
+      <div th:if="${loggedInUser}">
+        <div th:replace="~{user/sidebar :: sidebar}"></div>
+      </div>
+      <main
+        class="min-h-screen bg-gray-900 text-gray-100 flex items-center justify-center p-6"
+      >
+        <section
+          class="w-full max-w-lg bg-gray-800/60 backdrop-blur-sm border border-gray-700 rounded-2xl p-6 shadow-lg"
+        >
+          <h1 class="text-2xl font-semibold mb-1">Feedback</h1>
+          <p class="text-sm text-gray-400 mb-6">
+            Tell us what you think — your feedback helps us improve.
+          </p>
+
+          <form
+            id="feedbackForm"
+            class="space-y-4"
+            th:action="@{/user/feedback/submit}"
+            method="post"
+          >
+            <!-- Name (required) -->
+            <div>
+              <label
+                for="name"
+                class="block text-sm font-medium text-gray-200 mb-1"
+                >Name <span class="text-indigo-400">*</span></label
+              >
+              <input
+                id="name"
+                name="name"
+                required
+                type="text"
+                placeholder="Your name"
+                class="w-full px-4 py-2 rounded-lg bg-gray-800 border border-gray-700 placeholder-gray-400 text-gray-100 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              />
+              <p class="mt-1 text-xs text-red-400 hidden" id="nameError">
+                Please enter your name.
+              </p>
+            </div>
+
+            <!-- Email (required) -->
+            <div>
+              <label
+                for="email"
+                class="block text-sm font-medium text-gray-200 mb-1"
+                >Email <span class="text-indigo-400">*</span></label
+              >
+              <input
+                id="email"
+                name="email"
+                required
+                type="email"
+                placeholder="you@example.com"
+                class="w-full px-4 py-2 rounded-lg bg-gray-800 border border-gray-700 placeholder-gray-400 text-gray-100 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              />
+              <p class="mt-1 text-xs text-red-400 hidden" id="emailError">
+                Please enter a valid email.
+              </p>
+            </div>
+
+            <!-- Rate out of 5 -->
+            <div>
+              <label class="block text-sm font-medium text-gray-200 mb-2"
+                >Rate the platform</label
+              >
+              <div class="flex gap-2" id="ratingGroup">
+                <input
+                  class="rating-input hidden"
+                  type="radio"
+                  id="r1"
+                  name="rating"
+                  value="1"
+                />
+                <label
+                  for="r1"
+                  class="rating-label cursor-pointer px-3 py-2 rounded-lg border border-gray-700 text-sm text-gray-200 bg-gray-800 transition-colors"
+                  >1</label
+                >
+
+                <input
+                  class="rating-input hidden"
+                  type="radio"
+                  id="r2"
+                  name="rating"
+                  value="2"
+                />
+                <label
+                  for="r2"
+                  class="rating-label cursor-pointer px-3 py-2 rounded-lg border border-gray-700 text-sm text-gray-200 bg-gray-800 transition-colors"
+                  >2</label
+                >
+
+                <input
+                  class="rating-input hidden"
+                  type="radio"
+                  id="r3"
+                  name="rating"
+                  value="3"
+                  checked
+                />
+                <label
+                  for="r3"
+                  class="rating-label cursor-pointer px-3 py-2 rounded-lg border border-gray-700 text-sm text-gray-200 bg-gray-800 transition-colors"
+                  >3</label
+                >
+
+                <input
+                  class="rating-input hidden"
+                  type="radio"
+                  id="r4"
+                  name="rating"
+                  value="4"
+                />
+                <label
+                  for="r4"
+                  class="rating-label cursor-pointer px-3 py-2 rounded-lg border border-gray-700 text-sm text-gray-200 bg-gray-800 transition-colors"
+                  >4</label
+                >
+
+                <input
+                  class="rating-input hidden"
+                  type="radio"
+                  id="r5"
+                  name="rating"
+                  value="5"
+                />
+                <label
+                  for="r5"
+                  class="rating-label cursor-pointer px-3 py-2 rounded-lg border border-gray-700 text-sm text-gray-200 bg-gray-800 transition-colors"
+                  >5</label
+                >
+              </div>
+            </div>
+
+            <!-- Suggestions -->
+            <div>
+              <label
+                for="suggestion"
+                class="block text-sm font-medium text-gray-200 mb-1"
+                >Any suggestions (optional)</label
+              >
+              <textarea
+                id="suggestion"
+                name="suggestion"
+                rows="4"
+                placeholder="How can we improve?"
+                class="w-full px-4 py-3 rounded-lg bg-gray-800 border border-gray-700 placeholder-gray-400 text-gray-100 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              ></textarea>
+            </div>
+
+            <div class="flex justify-center gap-4 mt-6">
+              <!-- Submit Button -->
+              <button
+                type="submit"
+                class="px-6 py-2 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold rounded-lg shadow-md hover:shadow-lg transition duration-200"
+              >
+                Submit
+              </button>
+
+              <!-- Clear Button -->
+              <button
+                type="reset"
+                class="px-6 py-2 bg-gray-700 hover:bg-gray-800 text-gray-200 font-semibold rounded-lg shadow-md hover:shadow-lg transition duration-200"
+              >
+                Clear
+              </button>
+            </div>
+
+            <p
+              th:text="${message}"
+              id="formMsg"
+              class="mt-3 text-sm hidden"
+            ></p>
+          </form>
+        </section>
+      </main>
+    </div>
+
+    <div id="script">
+      <script>
+        const form = document.getElementById("feedbackForm");
+        const nameInput = document.getElementById("name");
+        const emailInput = document.getElementById("email");
+        const nameError = document.getElementById("nameError");
+        const emailError = document.getElementById("emailError");
+        const formMsg = document.getElementById("formMsg");
+        const ratingLabels = document.querySelectorAll(".rating-label");
+        const ratingInputs = document.querySelectorAll(".rating-input");
+
+        function validateEmail(email) {
+          return /^\S+@\S+\.\S+$/.test(email);
+        }
+
+        // Highlight selected rating
+        function updateRatingColor() {
+          ratingLabels.forEach((label, index) => {
+            if (ratingInputs[index].checked) {
+              label.classList.add(
+                "bg-indigo-600",
+                "text-white",
+                "border-indigo-500"
+              );
+              label.classList.remove(
+                "bg-gray-800",
+                "text-gray-200",
+                "border-gray-700"
+              );
+            } else {
+              label.classList.remove(
+                "bg-indigo-600",
+                "text-white",
+                "border-indigo-500"
+              );
+              label.classList.add(
+                "bg-gray-800",
+                "text-gray-200",
+                "border-gray-700"
+              );
+            }
+          });
+        }
+
+        ratingInputs.forEach((input) => {
+          input.addEventListener("change", updateRatingColor);
+        });
+
+        // Initialize the default selected color
+        updateRatingColor();
+      </script>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,9 @@
+/*/src/main/resources/static/input.css*/
+@import "tailwindcss";
+
+@theme {
+  --color-bg-dark: #111827;
+  --color-bg-light: #ffffff;
+  --color-text-dark: #f3f4f6;
+  --color-text-light: #1f2937;
+}

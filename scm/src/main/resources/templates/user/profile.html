@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html
+  lang="en"
+  th:replace="~{base::parent(~{::#content}, ~{::title}, ~{::script})}"
+>
+  <head>
+    <title th:text="${loggedInUser.name} + ' | SCM'">Profile Page</title>
+  </head>
+  <body>
+    <div id="content">
+      <!--sidebar-->
+      <div th:if="${loggedInUser}">
+        <div th:replace="~{user/sidebar :: sidebar}"></div>
+      </div>
+
+      <div id="content" class="sm:pl-66 pt-20 flex flex-col text-center">
+        <div class="flex justify-center flex-col items-center">
+          <!--profile card-->
+          <div
+            class="max-w-4xl mx-auto shadow-xl rounded-2xl p-6 sm:p-8 mt-10 bg-gray-800"
+          >
+            <div
+              class="flex flex-col sm:flex-row items-center sm:items-start gap-6"
+            >
+              <!-- Profile Picture -->
+              <img
+                th:src="${loggedInUser.profileLink != null ? loggedInUser.profileLink : 'https://i.pinimg.com/474x/e6/e4/df/e6e4df26ba752161b9fc6a17321fa286.jpg'}"
+                alt="Profile"
+                class="w-32 h-32 rounded-full object-cover border-4 border-indigo-500 shadow-sm"
+              />
+
+              <!-- Info Section -->
+              <div class="flex-1 space-y-3 sm:text-left">
+                <h2
+                  class="text-2xl font-bold text-gray-600"
+                  th:text="${loggedInUser.name}"
+                >
+                  Pulkit Arora
+                </h2>
+
+                <p class="text-gray-600">
+                  <span class="font-medium">Email:</span>
+                  <span class="font-medium" th:text="${loggedInUser.email}"
+                    >Email</span
+                  >
+                </p>
+                <p class="text-gray-600">
+                  <span class="font-medium">Phone:</span>
+                  <span
+                    class="font-medium"
+                    th:text="${loggedInUser.phoneNumber}"
+                    >Phone</span
+                  >
+                </p>
+                <p class="text-gray-600">
+                  <span class="font-medium">About:</span>
+                  <span class="font-medium" th:text="${loggedInUser.about}"
+                    >About</span
+                  >
+                </p>
+
+                <p class="text-gray-600">
+                  <span class="font-medium">Provider:</span>
+                  <span th:text="${loggedInUser.provider}"> Provider</span>
+                </p>
+
+                <!-- Badges -->
+                <div class="flex flex-wrap gap-2 sm:justify-start">
+                  <!-- Email Verified -->
+                  <span
+                    th:if="${loggedInUser.emailVerified}"
+                    class="bg-green-100 text-green-700 text-sm font-semibold px-3 py-1 rounded-full"
+                  >
+                    Email Verified
+                  </span>
+
+                  <span
+                    th:if="${!loggedInUser.emailVerified}"
+                    class="bg-green-100 text-red-700 text-sm font-semibold px-3 py-1 rounded-full"
+                  >
+                    Email Not Verified
+                  </span>
+
+                  <span
+                    th:if="${loggedInUser.enabled == false or loggedInUser.enabled == 0}"
+                    class="bg-green-100 text-red-700 text-sm font-semibold px-3 py-1 rounded-full"
+                  >
+                    Account Not Enabled
+                  </span>
+
+                  <!-- Show 'Account Enabled' only if enabled == true or 1 -->
+                  <span
+                    th:if="${loggedInUser.enabled == true or loggedInUser.enabled == 1}"
+                    class="bg-green-100 text-green-700 text-sm font-semibold px-3 py-1 rounded-full"
+                  >
+                    Account Enabled
+                  </span>
+                </div>
+
+                <!-- Roles -->
+                <div class="mt-4">
+                  <span class="font-medium text-gray-700">Roles:</span>
+                  <div class="flex flex-wrap gap-2 mt-1">
+                    <span
+                      th:each="role : ${loggedInUser.roleList}"
+                      th:text="${role}"
+                      class="bg-indigo-100 text-indigo-700 text-sm px-3 py-1 rounded-full font-medium"
+                    ></span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script>
+      console.log("Profile page script loaded");
+    </script>
+  </body>
+</html>
