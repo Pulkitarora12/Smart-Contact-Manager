@@ -1,0 +1,27 @@
+{
+  "name": "scm",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "commonjs",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Pulkitarora12/Smart-Contact-Manager.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Pulkitarora12/Smart-Contact-Manager/issues"
+  },
+  "homepage": "https://github.com/Pulkitarora12/Smart-Contact-Manager#readme",
+  "dependencies": {
+    "@tailwindcss/cli": "^4.1.11"
+  },
+  "devDependencies": {
+    "tailwindcss": "^4.1.11"
+  }
+}
