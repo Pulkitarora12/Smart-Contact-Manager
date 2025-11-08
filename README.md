@@ -11,7 +11,7 @@ A secure cloud-based contact management system
 ---
 
 ## 💡 Overview
-Smart Contact Manager is your personal hub for managing, organizing, and securing your contacts — powered by modern web technologies and cloud integration.  
+Smart Contact Manager is your personal hub for managing, organizing, and securing your contacts, powered by modern web technologies and cloud integration.  
 It offers seamless OAuth login, email notifications, and secure storage for your data using PostgreSQL on Supabase.
 
 ---
